@@ -5,7 +5,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                <MovieIndex test='test'/>
+                <MovieIndex/>
             </div>
         );
     }

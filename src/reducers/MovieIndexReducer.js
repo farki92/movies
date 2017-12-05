@@ -1,12 +1,10 @@
 const initialState = {
-    movies: {
-        comment: ''
-    },
+    movies: {},
 };
 
 const movieIndexReducer = (state = initialState, action = {}) => {
     switch (action.type) {
-        case 'TEST':
+        case 'SEARCH_LOADED':
             return state;
         default:
             return state;
