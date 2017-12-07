@@ -1,13 +1,14 @@
+import update from 'immutability-helper';
 import { IS_FETCHING } from '../actions/fetchActions/Fetch';
 
 const initialState = {
-    isFetching: {}
+    isFetching: false,
 };
 
 const pageStateReducer  = (state = initialState, action = {}) => {
     switch (action.type) {
         case IS_FETCHING:
-            return state;
+            return update(state, { isFetching: { $set: action.value } });
         default:
             return state;
     }

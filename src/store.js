@@ -6,9 +6,9 @@ import thunk from 'redux-thunk';
 
 export default createStore(
     combineReducers({
-        movieItemReducer,
-        movieIndexReducer,
-        pageStateReducer
+        MovieItem: movieItemReducer,
+        MovieIndex: movieIndexReducer,
+        PageState: pageStateReducer
     }),
     {},
     applyMiddleware(thunk)

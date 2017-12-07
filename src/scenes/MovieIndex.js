@@ -5,10 +5,10 @@ import { Grid, Col, Row } from 'react-bootstrap';
 import './MovieIndexStyle.css';
 import load from '../actions/fetchActions/Fetch';
 import SearchBar from '../components/header/SearchBar';
+import MovieList from '../components/movieList/MovieList';
+import { getSearchResult } from '../reducers/MovieIndexReducer';
 
-const mapStateToProps = state => {
-    return state;
-};
+const mapStateToProps = state => getSearchResult(state);
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     load
@@ -34,11 +34,11 @@ class MovieIndex extends Component {
                     </Col>
                 </Row>
 
-                {/*<Row className="show-grid">*/}
-                    {/*<Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>*/}
-                    {/*<Col xs={6} md={4}><code>&lt;{'Col xs={6} md={4}'} /&gt;</code></Col>*/}
-                    {/*<Col xsHidden md={4}><code>&lt;{'Col xsHidden md={4}'} /&gt;</code></Col>*/}
-                {/*</Row>*/}
+                <Row className="show-grid">
+                    <Col md={10} mdOffset={1}>
+                        <MovieList list={this.props.Movies} pages={this.props.TotalPages}/>
+                    </Col>
+                </Row>
 
                 {/*<Row className="show-grid">*/}
                     {/*<Col xs={6} xsOffset={6}><code>&lt;{'Col xs={6} xsOffset={6}'} /&gt;</code></Col>*/}

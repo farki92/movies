@@ -6,7 +6,7 @@ import './SearchBarStyle.css';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
-        this.state = { value: '', filter: 'All'};
+        this.state = { value: '', filter: 'All' };
         this.handleChange = this.handleChange.bind(this);
         this.searchHandler = this.searchHandler.bind(this);
         this.filterOnSelect = this.filterOnSelect.bind(this);
@@ -15,12 +15,9 @@ class SearchBar extends Component {
     searchHandler(e) {
         e.preventDefault();
         const term = {
-            value: this.state.value.replace(/[^a-zA-Z0-9_-]/g,''),
+            value: this.state.value.replace(/[^a-zA-Z0-9_ @?.,!&-]/g,''),
             filter: this.state.filter.toLowerCase(),
         };
-        if (term.value.length < 0) {
-            this.setState({isValid: 'error'})
-        }
         this.props.onSearch(term);
     }
 
@@ -60,7 +57,7 @@ class SearchBar extends Component {
                             <Button
                                 bsSize="large"
                                 bsStyle='primary'
-                                onClick={!this.state.isFetching ? this.searchHandler : null}
+                                onClick={!this.props.isFetching ? this.searchHandler : null}
                             >
                                 <Glyphicon glyph="glyphicon glyphicon-search" />
                             </Button>

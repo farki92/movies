@@ -14,13 +14,11 @@ const load = (url, nameSpace) => {
                     return response.json();
                 })
                 .then( r => {
-                    console.log('Farki : ' , r);
                     dispatch({type: IS_FETCHING, value: false});
-                    dispatch({type: `${nameSpace}_LOADED`, value: r.Search});
+                    dispatch({type: `${nameSpace}_LOADED`, value: r.Search, numberOfResults: r.totalResults});
                 })
                 .catch( error =>{
                     dispatch({type: IS_FETCHING, value: false});
-                    console.log('Farki : ' , error)
             })
         }
     );
