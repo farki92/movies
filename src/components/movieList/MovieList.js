@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import './MovieListStyle.css';
+import { Col } from 'react-bootstrap';
+import MovieListItem from '../listItem/MovieListItem';
 
 
 class MovieList extends Component {
     render() {
-        console.log('Farki : ' , this.props)
         return(
-            <ListGroup>
-                {this.props.list.map( (item, index) => {
-                    return (
-                        <ListGroupItem key={index}>
-                            <img className='poster' src={item.Poster} alt='Poster' />
-                            <a href='#' className='title' >{item.Title}</a>
-                        </ListGroupItem>
-
-                    )
-                })}
-            </ListGroup>
+            <Col md={10} mdOffset={1}>
+                    {this.props.list.map( (item, index) => {
+                        return(
+                            <MovieListItem
+                                id={item.imdbID}
+                                title={item.Title}
+                                poster={item.Poster}
+                                year={item.Year}
+                                showModal={this.props.showModal}
+                                key={index} />
+                        )
+                    })}
+            </Col>
         )
     }
 }

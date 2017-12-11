@@ -6,7 +6,7 @@ const initialState = {
 };
 
 
-export const getSearchResult = state => ({
+export const getMovieList = state => ({
         Movies: state.MovieIndex.Movies,
         isFetching: state.PageState.isFetching,
         TotalPages: state.MovieIndex.TotalPages
@@ -16,7 +16,8 @@ export const getSearchResult = state => ({
 const movieIndexReducer = (state = initialState, action = {}) => {
     switch (action.type) {
         case 'SEARCH_LOADED':
-            return update(state, { Movies: { $set: action.value }, TotalPages: { $set: Math.ceil(action.numberOfResults/10) } });
+        case 'INDEX_LOADED':
+            return update(state, { Movies: { $set: action.result.Search }, TotalPages: { $set: Math.ceil(action.result.totalResults/10) } });
         default:
             return state;
     }

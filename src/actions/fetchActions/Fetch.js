@@ -1,7 +1,6 @@
 export const IS_FETCHING = 'IS_FETCHING';
 
 const load = (url, nameSpace) => {
-    console.log('Url : ' , url);
     const homeUrl = 'http://www.omdbapi.com/';
     const apiKey = 'apikey=1bfe9dd8';
 
@@ -15,9 +14,9 @@ const load = (url, nameSpace) => {
                 })
                 .then( r => {
                     dispatch({type: IS_FETCHING, value: false});
-                    dispatch({type: `${nameSpace}_LOADED`, value: r.Search, numberOfResults: r.totalResults});
+                    dispatch({type: `${nameSpace}_LOADED`, result: r,});
                 })
-                .catch( error =>{
+                .catch( error => {
                     dispatch({type: IS_FETCHING, value: false});
             })
         }

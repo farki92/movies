@@ -1,0 +1,9 @@
+.poster {
+    height: 10%;
+    width:auto;
+}
+
+.titleContainer {
+    display: inline-block;
+    margin-left: 20px;
+}

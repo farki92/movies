@@ -6,9 +6,11 @@ import './MovieIndexStyle.css';
 import load from '../actions/fetchActions/Fetch';
 import SearchBar from '../components/header/SearchBar';
 import MovieList from '../components/movieList/MovieList';
-import { getSearchResult } from '../reducers/MovieIndexReducer';
+import MovieItemModal from '../components/movieItemModal/MovieItemModal';
+import { getMovieList } from '../reducers/MovieIndexReducer';
 
-const mapStateToProps = state => getSearchResult(state);
+
+const mapStateToProps = state => getMovieList(state);
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     load
@@ -18,12 +20,32 @@ class MovieIndex extends Component {
     constructor(props) {
         super(props);
         this.onSearch = this.onSearch.bind(this);
+        this.showMovieItemModal = this.showMovieItemModal.bind(this);
+        this.closeMovieItemModal = this.closeMovieItemModal.bind(this);
+        this.state = { isModalVisible: false }
     }
+
+
+    componentWillMount() {
+        this.props.load(`s=Star wars`, 'INDEX');
+    }
+
 
     onSearch(term) {
         const url = term.filter === 'all' ? `s=${term.value}` : `s=${term.value}&type=${term.filter}`;
         this.props.load(url, 'SEARCH')
     }
+
+
+    showMovieItemModal() {
+        this.setState({isModalVisible: true})
+    }
+
+
+    closeMovieItemModal() {
+        this.setState({isModalVisible: false})
+    }
+
 
     render() {
         return(
@@ -33,24 +55,18 @@ class MovieIndex extends Component {
                         <SearchBar onSearch={ term => this.onSearch(term)}/>
                     </Col>
                 </Row>
-
                 <Row className="show-grid">
-                    <Col md={10} mdOffset={1}>
-                        <MovieList list={this.props.Movies} pages={this.props.TotalPages}/>
-                    </Col>
+                        <MovieList list={this.props.Movies}
+                                   pages={this.props.TotalPages}
+                                   showModal={this.showMovieItemModal}/>
                 </Row>
-
-                {/*<Row className="show-grid">*/}
-                    {/*<Col xs={6} xsOffset={6}><code>&lt;{'Col xs={6} xsOffset={6}'} /&gt;</code></Col>*/}
-                {/*</Row>*/}
-
-                {/*<Row className="show-grid">*/}
-                    {/*<Col md={6} mdPush={6}><code>&lt;{'Col md={6} mdPush={6}'} /&gt;</code></Col>*/}
-                    {/*<Col md={6} mdPull={6}><code>&lt;{'Col md={6} mdPull={6}'} /&gt;</code></Col>*/}
-                {/*</Row>*/}
+                <MovieItemModal isVisible={this.state.isModalVisible}
+                                closeModal={this.closeMovieItemModal}
+                />
             </Grid>
         )
     }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieIndex);
