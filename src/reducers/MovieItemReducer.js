@@ -5,12 +5,11 @@ const initialState = {
 };
 
 
-export const getMovieItem = state => {
-  return {
+export const getMovieItem = state => ({
       movieItem: state.MovieItem.Movie,
       isFetching: state.PageState.isFetching,
   }
-};
+);
 
 
 const movieItemReducer  = (state = initialState, action = {}) => {

@@ -18,6 +18,9 @@ const movieIndexReducer = (state = initialState, action = {}) => {
         case 'SEARCH_LOADED':
         case 'INDEX_LOADED':
             return update(state, { Movies: { $set: action.result.Search }, TotalPages: { $set: Math.ceil(action.result.totalResults/10) } });
+        case 'NEXT_PAGE_LOADED':
+            const newList = state.Movies.concat(action.result.Search);
+            return update(state, { Movies: { $set: newList }, TotalPages: { $set: Math.ceil(action.result.totalResults/10) } });
         default:
             return state;
     }

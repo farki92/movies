@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button, ResponsiveEmbed } from 'react-bootstrap'
 import { getMovieItem } from '../../reducers/MovieItemReducer';
 import { connect } from 'react-redux';
 import './MovieItemModalStyle.css'
@@ -7,9 +7,14 @@ import './MovieItemModalStyle.css'
 const mapStateToProps = state => getMovieItem(state);
 
 class MovieItemModal extends Component {
+
+    componentWillUpdate(nextprops) {
+        this.props.loadTrailer(`${nextprops.movieItem.Title} ${nextprops.movieItem.Year} trailer`);
+    }
+
     render() {
         const movieItem = this.props.movieItem;
-
+        const videoUrl = `https://www.youtube.com/embed/${this.props.videoId}`
         return(
             <div>
                 <Modal show={this.props.isVisible} bsSize="large" onHide={this.props.closeModal}>
@@ -23,6 +28,7 @@ class MovieItemModal extends Component {
                               src={movieItem.Poster !== 'N/A' ? movieItem.Poster : 'http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png' }
                               alt='poster' height={350} width={245} />
                             <div style={{display: 'flex', flexDirection: 'column'}}>
+                                <p><span>Type:</span> {movieItem.Type}</p>
                                 <p><span>iMDB rating:</span> {movieItem.imdbRating}/10</p>
                                 <p><span>iMDB votes:</span> {movieItem.imdbVotes}</p>
                                 <p><span>Runtime:</span> {movieItem.Runtime}</p>
@@ -36,6 +42,10 @@ class MovieItemModal extends Component {
                             </div>
                         </div>
                         <p>{movieItem.Plot}</p>
+                        <hr/>
+                        <ResponsiveEmbed a16by9>
+                            <iframe className='embed-responsive-item' title='trailer' src={videoUrl}/>
+                        </ResponsiveEmbed>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.props.closeModal}>Close</Button>
@@ -48,3 +58,7 @@ class MovieItemModal extends Component {
 
 
 export default connect(mapStateToProps, null)(MovieItemModal);
+
+
+
+// api key: AIzaSyDLQYM_oTjSyn52j48q3ZjtEfEGTLwvYp8

@@ -8,6 +8,7 @@ import SearchBar from '../components/header/SearchBar';
 import MovieList from '../components/movieList/MovieList';
 import MovieItemModal from '../components/movieItemModal/MovieItemModal';
 import { getMovieList } from '../reducers/MovieIndexReducer';
+import YTSearch from 'youtube-api-search';
 
 
 const mapStateToProps = state => getMovieList(state);
@@ -22,22 +23,50 @@ class MovieIndex extends Component {
         this.onSearch = this.onSearch.bind(this);
         this.showMovieItemModal = this.showMovieItemModal.bind(this);
         this.closeMovieItemModal = this.closeMovieItemModal.bind(this);
-        this.state = { isModalVisible: false }
+        this.handleOnScroll = this.handleOnScroll.bind(this);
+        this.loadTrailer = this.loadTrailer.bind(this);
+        this.state = { isModalVisible: false, currentPage: 1, currentUrl: 's=Star wars', videoId: null}
     }
-
 
     componentWillMount() {
-        this.props.load(`s=Star wars`, 'INDEX');
+        this.props.load(this.state.currentUrl, 'INDEX');
     }
 
+    loadTrailer(title) {
+        console.log('Farki : title' , title)
+        YTSearch({key: 'AIzaSyDLQYM_oTjSyn52j48q3ZjtEfEGTLwvYp8', term: title}, (videos)=> {
+            this.setState({ videoId: videos[0].id.videoId })
+        })
+    }
 
     onSearch(term) {
         const url = term.filter === 'all' ? `s=${term.value}` : `s=${term.value}&type=${term.filter}`;
+        this.setState({ currentUrl: url });
         this.props.load(url, 'SEARCH')
     }
 
 
-    showMovieItemModal() {
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleOnScroll);
+    }
+
+    handleOnScroll() {
+        if (this.props.TotalPages <= this.state.currentPage) return;
+        const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
+        const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
+        const clientHeight = document.documentElement.clientHeight || window.innerHeight;
+        const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+        if(scrolledToBottom) {
+            const nextPage = this.state.currentPage + 1;
+
+            this.props.load(`${this.state.currentUrl}&page=${nextPage}`, 'NEXT_PAGE');
+            this.setState({ currentPage: nextPage });
+        }
+    }
+
+    showMovieItemModal(id) {
+        this.props.load(`i=${id}`, 'MOVIE_ITEM');
         this.setState({isModalVisible: true})
     }
 
@@ -56,12 +85,14 @@ class MovieIndex extends Component {
                     </Col>
                 </Row>
                 <Row className="show-grid">
-                        <MovieList list={this.props.Movies}
-                                   pages={this.props.TotalPages}
-                                   showModal={this.showMovieItemModal}/>
+                    <MovieList list={this.props.Movies}
+                               pages={this.props.TotalPages}
+                               showModal={this.showMovieItemModal}/>
                 </Row>
                 <MovieItemModal isVisible={this.state.isModalVisible}
                                 closeModal={this.closeMovieItemModal}
+                                loadTrailer={this.loadTrailer}
+                                videoId={this.state.videoId}
                 />
             </Grid>
         )

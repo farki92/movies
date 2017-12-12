@@ -18,18 +18,17 @@ class MovieListItem extends Component {
 
 
     handleClick() {
-        this.props.load(`i=${this.props.id}`, 'MOVIE_ITEM');
         this.props.showModal(this.props.id);
     }
 
     render() {
-        console.log('Farki : ' , this.props);
         return(
-            <ListGroupItem onClick={this.handleClick}>
-                <img src={this.props.poster !== 'N/A' ? this.props.poster : 'http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png'} height="100" width="70" alt='This is a poster'/>
-                <div className='titleContainer'>
-                    <h4>{this.props.title} ({this.props.year})</h4>
-                </div>
+            <ListGroupItem onClick={this.handleClick} bsClass='list-group-item listContainer'>
+                <img src={this.props.poster !== 'N/A' ? this.props.poster : 'http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png'}
+                     height="100"
+                     width="75"
+                     alt='This is a poster'/>
+                <h4>{this.props.title} ({this.props.year})</h4>
             </ListGroupItem>
         )
     }
