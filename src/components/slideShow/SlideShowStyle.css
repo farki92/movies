@@ -1,0 +1,16 @@
+.firstSection {
+    border-radius: 6px 0 0 6px;
+}
+
+.secondSection {
+    border-radius: 0 6px 6px 0;
+}
+
+.carouselContainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+img:hover {
+    cursor: pointer;
+}

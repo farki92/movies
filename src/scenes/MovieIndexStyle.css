@@ -5,3 +5,10 @@
 
 }
 
+.noPaddingLeft {
+    padding-left: 0!important;
+}
+
+.noPaddingRight {
+    padding-right: 0!important;
+}

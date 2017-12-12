@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Grid, Col, Row } from 'react-bootstrap';
+import YTSearch from 'youtube-api-search';
 import './MovieIndexStyle.css';
 import load from '../actions/fetchActions/Fetch';
 import SearchBar from '../components/header/SearchBar';
 import MovieList from '../components/movieList/MovieList';
 import MovieItemModal from '../components/movieItemModal/MovieItemModal';
 import { getMovieList } from '../reducers/MovieIndexReducer';
-import YTSearch from 'youtube-api-search';
+import SlideShow from '../components/slideShow/SlideShow';
 
 
 const mapStateToProps = state => getMovieList(state);
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    load
-}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ load }, dispatch);
 
 class MovieIndex extends Component {
     constructor(props) {
@@ -32,22 +31,23 @@ class MovieIndex extends Component {
         this.props.load(this.state.currentUrl, 'INDEX');
     }
 
-    loadTrailer(title) {
-        console.log('Farki : title' , title)
-        YTSearch({key: 'AIzaSyDLQYM_oTjSyn52j48q3ZjtEfEGTLwvYp8', term: title}, (videos)=> {
-            this.setState({ videoId: videos[0].id.videoId })
-        })
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleOnScroll);
     }
 
     onSearch(term) {
-        const url = term.filter === 'all' ? `s=${term.value}` : `s=${term.value}&type=${term.filter}`;
+        let url = `s=${term}`;
+        if (typeof term === 'object') {
+             url = term.filter === 'all' ? `s=${term.value}` : `s=${term.value}&type=${term.filter}`;
+        }
         this.setState({ currentUrl: url });
         this.props.load(url, 'SEARCH')
     }
 
-
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleOnScroll);
+    loadTrailer(title) {
+        YTSearch({key: 'AIzaSyDLQYM_oTjSyn52j48q3ZjtEfEGTLwvYp8', term: title}, (videos)=> {
+            this.setState({ videoId: videos[0].id.videoId })
+        })
     }
 
     handleOnScroll() {
@@ -70,11 +70,9 @@ class MovieIndex extends Component {
         this.setState({isModalVisible: true})
     }
 
-
     closeMovieItemModal() {
         this.setState({isModalVisible: false})
     }
-
 
     render() {
         return(
@@ -84,9 +82,16 @@ class MovieIndex extends Component {
                         <SearchBar onSearch={ term => this.onSearch(term)}/>
                     </Col>
                 </Row>
+                <Row className="show-grid" >
+                    <Col md={5} mdOffset={1} bsClass='noPaddingRight col'>
+                        <SlideShow section='firstSection' onSearch={ term => this.onSearch(term)}/>
+                    </Col>
+                    <Col md={5} bsClass='noPaddingLeft col'>
+                        <SlideShow section='secondSection' onSearch={ term => this.onSearch(term)}/>
+                    </Col>
+                </Row>
                 <Row className="show-grid">
                     <MovieList list={this.props.Movies}
-                               pages={this.props.TotalPages}
                                showModal={this.showMovieItemModal}/>
                 </Row>
                 <MovieItemModal isVisible={this.state.isModalVisible}

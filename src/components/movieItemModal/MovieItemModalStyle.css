@@ -1,3 +1,18 @@
 span {
     font-weight: bold;
 }
+
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.imgPadding {
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+.flexDescription {
+    display: flex;
+    flex-direction: column;
+}

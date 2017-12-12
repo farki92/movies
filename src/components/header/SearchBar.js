@@ -23,7 +23,7 @@ class SearchBar extends Component {
 
 
     filterOnSelect(e) {
-        const filters = ['All', 'Movies', 'Series', 'Episodes'];
+        const filters = ['All', 'movie', 'series', 'game'];
         this.setState({ filter: filters[e] });
     }
 
@@ -46,13 +46,13 @@ class SearchBar extends Component {
                         />
                         <InputGroup.Button>
                             <DropdownButton bsSize="large"
-                                            title={this.state.filter}
+                                            title={`${this.state.filter.charAt(0).toUpperCase()}${this.state.filter.slice(1)}`}
                                             id='filter'
                                             onSelect={this.filterOnSelect}>
                                 <MenuItem eventKey="0">All</MenuItem>
-                                <MenuItem eventKey="1">Movies</MenuItem>
+                                <MenuItem eventKey="1">Movie</MenuItem>
                                 <MenuItem eventKey="2">Series</MenuItem>
-                                <MenuItem eventKey="3">Episode</MenuItem>
+                                <MenuItem eventKey="3">Game</MenuItem>
                             </DropdownButton>
                             <Button
                                 bsSize="large"

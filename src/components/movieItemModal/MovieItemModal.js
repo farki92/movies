@@ -4,17 +4,17 @@ import { getMovieItem } from '../../reducers/MovieItemReducer';
 import { connect } from 'react-redux';
 import './MovieItemModalStyle.css'
 
+
 const mapStateToProps = state => getMovieItem(state);
 
 class MovieItemModal extends Component {
-
     componentWillUpdate(nextprops) {
         this.props.loadTrailer(`${nextprops.movieItem.Title} ${nextprops.movieItem.Year} trailer`);
     }
 
     render() {
         const movieItem = this.props.movieItem;
-        const videoUrl = `https://www.youtube.com/embed/${this.props.videoId}`
+        const videoUrl = `https://www.youtube.com/embed/${this.props.videoId}`;
         return(
             <div>
                 <Modal show={this.props.isVisible} bsSize="large" onHide={this.props.closeModal}>
@@ -23,11 +23,13 @@ class MovieItemModal extends Component {
                         <p>{`${movieItem.Rated} |`} {`${movieItem.Genre} |`} {movieItem.Released} {movieItem.Country}</p>
                     </Modal.Header>
                     <Modal.Body>
-                        <div style={{display: 'flex', flexDirection: 'row'}}>
-                        <img  style={{paddingRight: 20, paddingBottom: 20}}
-                              src={movieItem.Poster !== 'N/A' ? movieItem.Poster : 'http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png' }
-                              alt='poster' height={350} width={245} />
-                            <div style={{display: 'flex', flexDirection: 'column'}}>
+                        <div className='flexContainer'>
+                        <img  className='imgPadding'
+                              src={movieItem.Poster !== 'N/A' ? movieItem.Poster : 'https://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png' }
+                              alt='poster'
+                              height={350}
+                              width={245} />
+                            <div className='flexDescription'>
                                 <p><span>Type:</span> {movieItem.Type}</p>
                                 <p><span>iMDB rating:</span> {movieItem.imdbRating}/10</p>
                                 <p><span>iMDB votes:</span> {movieItem.imdbVotes}</p>
@@ -58,7 +60,3 @@ class MovieItemModal extends Component {
 
 
 export default connect(mapStateToProps, null)(MovieItemModal);
-
-
-
-// api key: AIzaSyDLQYM_oTjSyn52j48q3ZjtEfEGTLwvYp8
