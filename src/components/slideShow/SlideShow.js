@@ -12,13 +12,13 @@ const firstLetterToUpperCase = term => (
 );
 
 const SlideShow = ({ section, onSearch }) => (
-        <Carousel bsClass='carouselContainer carousel'>
+        <Carousel bsClass={`carouselContainer ${section} carousel`}>
             {Object.entries(Images[section]).map( (item, index) => {
                 return(
                     <Carousel.Item key={index}>
-                        <img className={section}
-                             alt={item[0]}
+                        <img alt={item[0]}
                              src={item[1]}
+                             className='cursor'
                              onClick={ () => onSearch(item[0].replace(/_/g, ' ')) } />
                         <Carousel.Caption>
                             <h3>{firstLetterToUpperCase(item[0].replace(/_/g, ' '))}</h3>

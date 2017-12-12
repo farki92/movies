@@ -7,9 +7,10 @@ const initialState = {
 
 
 export const getMovieList = state => ({
-        Movies: state.MovieIndex.Movies,
-        isFetching: state.PageState.isFetching,
-        TotalPages: state.MovieIndex.TotalPages
+    Movies: state.MovieIndex.Movies,
+    isFetching: state.PageState.isFetching,
+    TotalPages: state.MovieIndex.TotalPages,
+    Error: state.PageState.Error,
 });
 
 

@@ -16,3 +16,24 @@ span {
     display: flex;
     flex-direction: column;
 }
+
+.background {
+    background-color: #323232;
+    color: white;
+}
+span {
+    color: white;
+}
+
+
+@media only screen and (max-width: 540px) {
+    .flexContainer {
+        flex-direction: column;
+    }
+
+    .imgPadding {
+        margin: 10px auto;
+        padding: 0;
+    }
+
+}

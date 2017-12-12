@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Grid, Col, Row } from 'react-bootstrap';
+import { Grid, Col, Row, Alert, Glyphicon } from 'react-bootstrap';
 import YTSearch from 'youtube-api-search';
 import './MovieIndexStyle.css';
 import load from '../actions/fetchActions/Fetch';
@@ -24,7 +24,15 @@ class MovieIndex extends Component {
         this.closeMovieItemModal = this.closeMovieItemModal.bind(this);
         this.handleOnScroll = this.handleOnScroll.bind(this);
         this.loadTrailer = this.loadTrailer.bind(this);
-        this.state = { isModalVisible: false, currentPage: 1, currentUrl: 's=Star wars', videoId: null}
+        this.closeAlert = this.closeAlert.bind(this);
+        this.scrollToTop = this.scrollToTop.bind(this);
+        this.state = {
+            isModalVisible: false,
+            currentPage: 1,
+            currentUrl: 's=Star wars',
+            videoId: null,
+            isAlertVisible: !!this.props.Error.Error,
+        }
     }
 
     componentWillMount() {
@@ -33,6 +41,13 @@ class MovieIndex extends Component {
 
     componentDidMount() {
         window.addEventListener('scroll', this.handleOnScroll);
+    }
+    componentWillReceiveProps(props) {
+        if (props.Error.Error) {
+            this.setState({ isAlertVisible: true })
+        } else {
+            this.setState({ isAlertVisible: false })
+        }
     }
 
     onSearch(term) {
@@ -45,7 +60,7 @@ class MovieIndex extends Component {
     }
 
     loadTrailer(title) {
-        YTSearch({key: 'AIzaSyDLQYM_oTjSyn52j48q3ZjtEfEGTLwvYp8', term: title}, (videos)=> {
+        YTSearch({key: 'AIzaSyDLQYM_oTjSyn52j48q3ZjtEfEGTLwvYp8', term: title}, videos => {
             this.setState({ videoId: videos[0].id.videoId })
         })
     }
@@ -59,10 +74,16 @@ class MovieIndex extends Component {
 
         if(scrolledToBottom) {
             const nextPage = this.state.currentPage + 1;
+            const scrollToTop = document.getElementById('upIcon');
+            scrollToTop.classList.remove('hide');
 
             this.props.load(`${this.state.currentUrl}&page=${nextPage}`, 'NEXT_PAGE');
             this.setState({ currentPage: nextPage });
         }
+    }
+
+    scrollToTop() {
+        window.scrollTo(0,0);
     }
 
     showMovieItemModal(id) {
@@ -74,9 +95,18 @@ class MovieIndex extends Component {
         this.setState({isModalVisible: false})
     }
 
+    closeAlert() {
+        this.setState({isAlertVisible: false})
+    }
+
     render() {
         return(
             <Grid bsClass='container grid-background'>
+                {this.state.isAlertVisible &&
+                    <Alert bsStyle="danger" onDismiss={this.closeAlert}>
+                        <p>{this.props.Error.Error && this.props.Error.Error}</p>
+                    </Alert>
+                }
                 <Row className="show-grid" >
                     <Col md={8} mdOffset={2}>
                         <SearchBar onSearch={ term => this.onSearch(term)}/>
@@ -99,6 +129,9 @@ class MovieIndex extends Component {
                                 loadTrailer={this.loadTrailer}
                                 videoId={this.state.videoId}
                 />
+                <div className='up hide' id='upIcon' onClick={ () => this.scrollToTop()}>
+                    <Glyphicon glyph="upload" />
+                </div>
             </Grid>
         )
     }

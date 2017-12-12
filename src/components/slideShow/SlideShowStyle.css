@@ -1,9 +1,9 @@
 .firstSection {
-    border-radius: 6px 0 0 6px;
+    border-radius: 4px 0 0 4px;
 }
 
 .secondSection {
-    border-radius: 0 6px 6px 0;
+    border-radius: 0 4px 4px 0;
 }
 
 .carouselContainer {
@@ -11,6 +11,6 @@
     margin-bottom: 20px;
 }
 
-img:hover {
+.cursor {
     cursor: pointer;
 }

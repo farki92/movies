@@ -43,6 +43,7 @@ class SearchBar extends Component {
                             onChange={ this.handleChange }
                             bsSize="large"
                             autoFocus
+                            autoComplete="off"
                         />
                         <InputGroup.Button>
                             <DropdownButton bsSize="large"

@@ -1,8 +1,5 @@
 .grid-background {
     background-color: #323232;
-
-    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
-
 }
 
 .noPaddingLeft {
@@ -11,4 +8,19 @@
 
 .noPaddingRight {
     padding-right: 0!important;
+}
+
+.up {
+    z-index: 100;
+    float: right;
+    bottom: 0px;
+    position: fixed;
+    margin-left: 70%;
+    margin-bottom: 20px;
+    font-size: 4em;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
 }

@@ -19,6 +19,7 @@ const Images = {
         superman: require('./superman.jpg'),
         transformers: require('./transformers.jpg'),
     },
+    emptyPoster: require('./emptyPoster.png')
 };
 
 export default Images;

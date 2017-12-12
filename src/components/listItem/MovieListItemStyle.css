@@ -4,8 +4,19 @@
 }
 
 .listContainer {
-    border: 1px solid #191919!important;
+    border: 1px solid black!important;
     outline: none;
+    background-color: #191919;
+    color: white!important;
+}
+
+.listContainer:hover {
+    background-color: #323232!important;
+}
+.listContainer:focus {
+    background-color: #262626!important;
+    color: white!important;
+
 }
 
 h4 {

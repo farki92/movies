@@ -3,6 +3,7 @@ import { Modal, Button, ResponsiveEmbed } from 'react-bootstrap'
 import { getMovieItem } from '../../reducers/MovieItemReducer';
 import { connect } from 'react-redux';
 import './MovieItemModalStyle.css'
+import Images from '../../images/Images';
 
 
 const mapStateToProps = state => getMovieItem(state);
@@ -17,18 +18,21 @@ class MovieItemModal extends Component {
         const videoUrl = `https://www.youtube.com/embed/${this.props.videoId}`;
         return(
             <div>
-                <Modal show={this.props.isVisible} bsSize="large" onHide={this.props.closeModal}>
-                    <Modal.Header closeButton>
+                <Modal show={this.props.isVisible}
+                       bsSize="large"
+                       onHide={this.props.closeModal}>
+                    <Modal.Header closeButton bsClass='modal-header background'
+                    >
                         <Modal.Title>{movieItem.Title} {`(${movieItem.Year})`}</Modal.Title>
                         <p>{`${movieItem.Rated} |`} {`${movieItem.Genre} |`} {movieItem.Released} {movieItem.Country}</p>
                     </Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body bsClass='modal-body background'>
                         <div className='flexContainer'>
                         <img  className='imgPadding'
-                              src={movieItem.Poster !== 'N/A' ? movieItem.Poster : 'https://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png' }
+                              src={movieItem.Poster !== 'N/A'|| movieItem.Poster === '' ? movieItem.Poster : Images.emptyPoster }
                               alt='poster'
                               height={350}
-                              width={245} />
+                              width={255} />
                             <div className='flexDescription'>
                                 <p><span>Type:</span> {movieItem.Type}</p>
                                 <p><span>iMDB rating:</span> {movieItem.imdbRating}/10</p>
@@ -49,8 +53,8 @@ class MovieItemModal extends Component {
                             <iframe className='embed-responsive-item' title='trailer' src={videoUrl}/>
                         </ResponsiveEmbed>
                     </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.props.closeModal}>Close</Button>
+                    <Modal.Footer bsClass='modal-footer background'>
+                        <Button bsStyle='primary' onClick={this.props.closeModal}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             </div>

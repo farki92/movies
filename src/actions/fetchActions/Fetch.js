@@ -13,10 +13,17 @@ const load = (url, nameSpace) => {
                     return response.json();
                 })
                 .then( r => {
-                    dispatch({type: IS_FETCHING, value: false});
-                    dispatch({type: `${nameSpace}_LOADED`, result: r,});
+                    if (r.Response === 'False') {
+                        dispatch({type: IS_FETCHING, value: false});
+                        dispatch({type: 'HAS_ERROR', result: r});
+                    } else {
+                        dispatch({type: IS_FETCHING, value: false});
+                        dispatch({type: 'HAS_ERROR', result: false});
+                        dispatch({type: `${nameSpace}_LOADED`, result: r});
+                    }
                 })
                 .catch( error => {
+                    dispatch({type: 'HAS_ERROR', result: error});
                     dispatch({type: IS_FETCHING, value: false});
             })
         }
