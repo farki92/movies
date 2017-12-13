@@ -1,7 +1,7 @@
 export const IS_FETCHING = 'IS_FETCHING';
 
 const load = (url, nameSpace) => {
-    const homeUrl = 'http://www.omdbapi.com/';
+    const homeUrl = 'https://www.omdbapi.com/';
     const apiKey = 'apikey=1bfe9dd8';
 
     return(
