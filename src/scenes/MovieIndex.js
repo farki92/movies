@@ -147,7 +147,7 @@ class MovieIndex extends Component {
                                 videoId={this.state.videoId}
                 />
                 <div className='up hide' id='upIcon' onClick={ () => window.scrollTo(0,0) }>
-                    <Glyphicon glyph="upload" />
+                    <Glyphicon bsClass='white glyphicon' glyph="upload" />
                 </div>
             </Grid>
         )

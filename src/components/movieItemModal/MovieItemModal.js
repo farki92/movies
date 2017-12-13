@@ -41,8 +41,8 @@ class MovieItemModal extends Component {
                                 <p><span>Runtime:</span> {movieItem.Runtime}</p>
                                 <p><span>Language:</span> {movieItem.Language}</p>
                                 <p><span>Website: </span>
-                                    <a href={movieItem.Website !== 'N/A' && movieItem.Website}>
-                                        {movieItem.Website !== 'N/A' && movieItem.Website || ' - '}
+                                    <a href={movieItem.Website !== 'N/A'? movieItem.Website : ''}>
+                                        {movieItem.Website !== 'N/A' ? movieItem.Website : ' - '}
                                     </a>
                                 </p>
                                 <p><span>Production:</span> {movieItem.Production}</p>
