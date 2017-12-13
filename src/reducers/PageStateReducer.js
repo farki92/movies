@@ -1,5 +1,5 @@
 import update from 'immutability-helper';
-import { IS_FETCHING } from '../actions/fetchActions/Fetch';
+import { IS_FETCHING } from '../actions/Fetch';
 
 
 const initialState = {

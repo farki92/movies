@@ -6,7 +6,7 @@ import './SearchBarStyle.css';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
-        this.state = { value: '', filter: 'All' };
+        this.state = { value: '', filter: 'All', isEmpty: false };
         this.handleChange = this.handleChange.bind(this);
         this.searchHandler = this.searchHandler.bind(this);
         this.filterOnSelect = this.filterOnSelect.bind(this);
@@ -14,6 +14,12 @@ class SearchBar extends Component {
 
     searchHandler(e) {
         e.preventDefault();
+        if (this.state.value === '') {
+            this.setState({ isEmpty: true });
+            return;
+        }
+        this.setState({ isEmpty: false });
+
         const term = {
             value: this.state.value.replace(/[^a-zA-Z0-9_ @?.,!&-]/g,''),
             filter: this.state.filter.toLowerCase(),
@@ -39,11 +45,12 @@ class SearchBar extends Component {
                         <FormControl
                             type="text"
                             value={ this.state.value }
-                            placeholder="Search"
+                            placeholder={this.state.isEmpty ? 'Required field!' : 'Search'}
                             onChange={ this.handleChange }
-                            bsSize="large"
+                            bsSize='large'
+                            bsClass={`form-control ${this.state.isEmpty && 'error'}`}
                             autoFocus
-                            autoComplete="off"
+                            autoComplete='off'
                         />
                         <InputGroup.Button>
                             <DropdownButton bsSize="large"

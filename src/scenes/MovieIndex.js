@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Grid, Col, Row, Alert, Glyphicon } from 'react-bootstrap';
 import YTSearch from 'youtube-api-search';
 import './MovieIndexStyle.css';
-import load from '../actions/fetchActions/Fetch';
+import load from '../actions/Fetch';
 import SearchBar from '../components/searchBar/SearchBar';
 import MovieList from '../components/movieList/MovieList';
 import MovieItemModal from '../components/movieItemModal/MovieItemModal';
