@@ -12,21 +12,21 @@ const firstLetterToUpperCase = term => (
 );
 
 const SlideShow = ({ section, onSearch }) => (
-        <Carousel bsClass={`carouselContainer ${section} carousel`}>
-            {Object.entries(Images[section]).map( (item, index) => {
-                return(
-                    <Carousel.Item key={index}>
-                        <img alt={item[0]}
-                             src={item[1]}
-                             className='cursor'
-                             onClick={ () => onSearch(item[0].replace(/_/g, ' ')) } />
-                        <Carousel.Caption>
-                            <h3>{firstLetterToUpperCase(item[0].replace(/_/g, ' '))}</h3>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                )
-            })}
-        </Carousel>
+    <Carousel bsClass={`carouselContainer ${section} carousel`}>
+        {Object.entries(Images[section]).map( (item, index) => {
+            return(
+                <Carousel.Item key={index}>
+                    <img alt={item[0]}
+                         src={item[1]}
+                         className='cursor'
+                         onClick={ () => onSearch(item[0].replace(/_/g, ' ')) } />
+                    <Carousel.Caption>
+                        <h3>{firstLetterToUpperCase(item[0].replace(/_/g, ' '))}</h3>
+                    </Carousel.Caption>
+                </Carousel.Item>
+            )
+        })}
+    </Carousel>
 );
 
 export default SlideShow;

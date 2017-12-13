@@ -13,6 +13,7 @@
 .listContainer:hover {
     background-color: #323232!important;
 }
+
 .listContainer:focus {
     background-color: #262626!important;
     color: white!important;

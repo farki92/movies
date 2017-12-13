@@ -1,10 +1,10 @@
 import update from 'immutability-helper';
 
+
 const initialState = {
     Movies: [],
     TotalPages: 0,
 };
-
 
 export const getMovieList = state => ({
     Movies: state.MovieIndex.Movies,
@@ -12,7 +12,6 @@ export const getMovieList = state => ({
     TotalPages: state.MovieIndex.TotalPages,
     Error: state.PageState.Error,
 });
-
 
 const movieIndexReducer = (state = initialState, action = {}) => {
     switch (action.type) {

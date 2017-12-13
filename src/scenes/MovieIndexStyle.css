@@ -13,14 +13,28 @@
 .up {
     z-index: 100;
     float: right;
-    bottom: 0px;
+    bottom: 0;
     position: fixed;
     margin-left: 70%;
     margin-bottom: 20px;
-    font-size: 4em;
+    font-size: 50px;
     cursor: pointer;
 }
 
 .hide {
-    display: none;
+    animation: hide 1s ease-in;
+}
+
+.show {
+    animation: show 1s ease-in;
+}
+
+@keyframes hide {
+    from { opacity: 1 }
+    to { opacity: 0 }
+}
+
+@keyframes show {
+    from { opacity: 0 }
+    to { opacity: 1 }
 }

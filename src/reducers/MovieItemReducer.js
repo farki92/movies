@@ -1,16 +1,15 @@
 import update from 'immutability-helper'
 
+
 const initialState = {
     Movie: {}
 };
-
 
 export const getMovieItem = state => ({
       movieItem: state.MovieItem.Movie,
       isFetching: state.PageState.isFetching,
   }
 );
-
 
 const movieItemReducer  = (state = initialState, action = {}) => {
     switch (action.type) {
@@ -20,5 +19,6 @@ const movieItemReducer  = (state = initialState, action = {}) => {
             return state;
     }
 };
+
 
 export default movieItemReducer;

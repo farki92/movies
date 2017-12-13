@@ -31,4 +31,3 @@ const load = (url, nameSpace) => {
 };
 
 export default load;
-

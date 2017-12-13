@@ -9,8 +9,9 @@ import Images from '../../images/Images';
 const mapStateToProps = state => getMovieItem(state);
 
 class MovieItemModal extends Component {
-    componentWillUpdate(nextprops) {
-        this.props.loadTrailer(`${nextprops.movieItem.Title} ${nextprops.movieItem.Year} trailer`);
+
+    componentWillReceiveProps(nextProps) {
+        this.props.loadTrailer(`${nextProps.movieItem.Title} ${nextProps.movieItem.Year} ${nextProps.movieItem.Type} trailer`);
     }
 
     render() {
@@ -39,7 +40,11 @@ class MovieItemModal extends Component {
                                 <p><span>iMDB votes:</span> {movieItem.imdbVotes}</p>
                                 <p><span>Runtime:</span> {movieItem.Runtime}</p>
                                 <p><span>Language:</span> {movieItem.Language}</p>
-                                <p><span>Website:</span> <a href={movieItem.Website}>{movieItem.Website}</a></p>
+                                <p><span>Website: </span>
+                                    <a href={movieItem.Website !== 'N/A' && movieItem.Website}>
+                                        {movieItem.Website !== 'N/A' && movieItem.Website || ' - '}
+                                    </a>
+                                </p>
                                 <p><span>Production:</span> {movieItem.Production}</p>
                                 <p><span>Awards:</span> {movieItem.Awards}</p>
                                 <p><span>Director:</span> {movieItem.Director}</p>

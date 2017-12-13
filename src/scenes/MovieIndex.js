@@ -5,7 +5,7 @@ import { Grid, Col, Row, Alert, Glyphicon } from 'react-bootstrap';
 import YTSearch from 'youtube-api-search';
 import './MovieIndexStyle.css';
 import load from '../actions/fetchActions/Fetch';
-import SearchBar from '../components/header/SearchBar';
+import SearchBar from '../components/searchBar/SearchBar';
 import MovieList from '../components/movieList/MovieList';
 import MovieItemModal from '../components/movieItemModal/MovieItemModal';
 import { getMovieList } from '../reducers/MovieIndexReducer';
@@ -25,13 +25,15 @@ class MovieIndex extends Component {
         this.handleOnScroll = this.handleOnScroll.bind(this);
         this.loadTrailer = this.loadTrailer.bind(this);
         this.closeAlert = this.closeAlert.bind(this);
-        this.scrollToTop = this.scrollToTop.bind(this);
+        this.handleUpIcon = this.handleUpIcon.bind(this);
+        this.loadNextPage = this.loadNextPage.bind(this);
         this.state = {
             isModalVisible: false,
             currentPage: 1,
             currentUrl: 's=Star wars',
             videoId: null,
             isAlertVisible: !!this.props.Error.Error,
+            scrollPosition: 0,
         }
     }
 
@@ -42,6 +44,7 @@ class MovieIndex extends Component {
     componentDidMount() {
         window.addEventListener('scroll', this.handleOnScroll);
     }
+
     componentWillReceiveProps(props) {
         if (props.Error.Error) {
             this.setState({ isAlertVisible: true })
@@ -65,8 +68,22 @@ class MovieIndex extends Component {
         })
     }
 
-    handleOnScroll() {
-        if (this.props.TotalPages <= this.state.currentPage) return;
+    handleUpIcon() {
+        const newScrollPosition = window.scrollY;
+        const upIcon = document.getElementById('upIcon');
+
+        if (newScrollPosition < this.state.scrollPosition){
+            upIcon.classList.remove('show');
+            upIcon.classList.add('hide');
+
+        } else {
+            upIcon.classList.remove('hide');
+            upIcon.classList.add('show');
+        }
+        this.setState({scrollPosition: newScrollPosition});
+    }
+
+    loadNextPage() {
         const scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         const scrollHeight = (document.documentElement && document.documentElement.scrollHeight) || document.body.scrollHeight;
         const clientHeight = document.documentElement.clientHeight || window.innerHeight;
@@ -74,16 +91,16 @@ class MovieIndex extends Component {
 
         if(scrolledToBottom) {
             const nextPage = this.state.currentPage + 1;
-            const scrollToTop = document.getElementById('upIcon');
-            scrollToTop.classList.remove('hide');
 
             this.props.load(`${this.state.currentUrl}&page=${nextPage}`, 'NEXT_PAGE');
             this.setState({ currentPage: nextPage });
         }
     }
 
-    scrollToTop() {
-        window.scrollTo(0,0);
+    handleOnScroll() {
+        if (this.props.TotalPages <= this.state.currentPage) return;
+        this.handleUpIcon();
+        this.loadNextPage();
     }
 
     showMovieItemModal(id) {
@@ -109,15 +126,15 @@ class MovieIndex extends Component {
                 }
                 <Row className="show-grid" >
                     <Col md={8} mdOffset={2}>
-                        <SearchBar onSearch={ term => this.onSearch(term)}/>
+                        <SearchBar onSearch={ term => this.onSearch(term) }/>
                     </Col>
                 </Row>
                 <Row className="show-grid" >
                     <Col md={5} mdOffset={1} bsClass='noPaddingRight col'>
-                        <SlideShow section='firstSection' onSearch={ term => this.onSearch(term)}/>
+                        <SlideShow section='firstSection' onSearch={ term => this.onSearch(term) }/>
                     </Col>
                     <Col md={5} bsClass='noPaddingLeft col'>
-                        <SlideShow section='secondSection' onSearch={ term => this.onSearch(term)}/>
+                        <SlideShow section='secondSection' onSearch={ term => this.onSearch(term) }/>
                     </Col>
                 </Row>
                 <Row className="show-grid">
@@ -129,7 +146,7 @@ class MovieIndex extends Component {
                                 loadTrailer={this.loadTrailer}
                                 videoId={this.state.videoId}
                 />
-                <div className='up hide' id='upIcon' onClick={ () => this.scrollToTop()}>
+                <div className='up hide' id='upIcon' onClick={ () => window.scrollTo(0,0) }>
                     <Glyphicon glyph="upload" />
                 </div>
             </Grid>

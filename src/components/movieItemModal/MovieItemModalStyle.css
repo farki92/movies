@@ -1,5 +1,6 @@
-span {
+.background span {
     font-weight: bold;
+    color: white;
 }
 
 .flexContainer {
@@ -21,10 +22,6 @@ span {
     background-color: #323232;
     color: white;
 }
-span {
-    color: white;
-}
-
 
 @media only screen and (max-width: 540px) {
     .flexContainer {
@@ -35,5 +32,4 @@ span {
         margin: 10px auto;
         padding: 0;
     }
-
 }

@@ -1,6 +1,7 @@
 import update from 'immutability-helper';
 import { IS_FETCHING } from '../actions/fetchActions/Fetch';
 
+
 const initialState = {
     isFetching: false,
     Error: {},
@@ -16,5 +17,6 @@ const pageStateReducer  = (state = initialState, action = {}) => {
             return state;
     }
 };
+
 
 export default pageStateReducer;
