@@ -120,7 +120,7 @@ class MovieIndex extends Component {
     render() {
         return(
             <Grid bsClass='container grid-background'>
-                {this.state.isAlertVisible &&
+                {this.state.isAlertVisible && !this.props.isFetching &&
                     <Alert bsStyle="danger" onDismiss={this.closeAlert}>
                         <p>{this.props.Error.Error && this.props.Error.Error}</p>
                     </Alert>
