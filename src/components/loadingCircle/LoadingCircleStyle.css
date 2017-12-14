@@ -1,0 +1,25 @@
+.loadingBottom {
+    position: fixed;
+    left: 50%;
+    margin-left: -20px;
+    z-index: 10000;
+    bottom: -60px;
+}
+
+.showCircle {
+    animation: showCircle 0.2s ease-in-out both 1;
+}
+
+.hideCircle {
+    animation: hideCircle 0.2s 0.5s ease-in-out both 1;
+}
+
+@-webkit-keyframes showCircle {
+    from { transform: translateY(0) }
+    to { transform: translateY(-80px) }
+}
+
+@-webkit-keyframes hideCircle {
+    from { transform: translateY(-80px) }
+    to { transform: translateY(0) }
+}

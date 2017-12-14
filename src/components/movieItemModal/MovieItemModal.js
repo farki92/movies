@@ -19,7 +19,7 @@ class MovieItemModal extends Component {
         const videoUrl = `https://www.youtube.com/embed/${this.props.videoId}`;
         return(
             <div>
-                <Modal show={this.props.isVisible}
+                <Modal show={this.props.isVisible && !this.props.isFetching}
                        bsSize="large"
                        onHide={this.props.closeModal}>
                     <Modal.Header closeButton bsClass='modal-header background'

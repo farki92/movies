@@ -10,6 +10,7 @@ import MovieList from '../components/movieList/MovieList';
 import MovieItemModal from '../components/movieItemModal/MovieItemModal';
 import { getMovieList } from '../reducers/MovieIndexReducer';
 import SlideShow from '../components/slideShow/SlideShow';
+import LoadingCircle from '../components/loadingCircle/LoadingCircle';
 
 
 const mapStateToProps = state => getMovieList(state);
@@ -139,9 +140,11 @@ class MovieIndex extends Component {
                 </Row>
                 <Row className="show-grid">
                     <MovieList list={this.props.Movies}
+                               isFetching={this.props.isFetching}
                                showModal={this.showMovieItemModal}/>
                 </Row>
                 <MovieItemModal isVisible={this.state.isModalVisible}
+                                isFetching={this.props.isFetching}
                                 closeModal={this.closeMovieItemModal}
                                 loadTrailer={this.loadTrailer}
                                 videoId={this.state.videoId}
@@ -149,6 +152,7 @@ class MovieIndex extends Component {
                 <div className='up hide' id='upIcon' onClick={ () => window.scrollTo(0,0) }>
                     <Glyphicon bsClass='white glyphicon' glyph="upload" />
                 </div>
+                <LoadingCircle mode='indexCircle' isFetching={this.props.isFetching}/>
             </Grid>
         )
     }

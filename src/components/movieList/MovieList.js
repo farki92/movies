@@ -1,21 +1,23 @@
 import React from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, ListGroup } from 'react-bootstrap';
 import MovieListItem from '../listItem/MovieListItem';
 
 
-const MovieList = ({list, showModal}) => (
+const MovieList = ({ list, showModal, isFetching }) => (
     <Col md={10} mdOffset={1}>
-        {list.map( (item, index) => {
-            return(
-                <MovieListItem
-                    id={item.imdbID}
-                    title={item.Title}
-                    poster={item.Poster}
-                    year={item.Year}
-                    showModal={showModal}
-                    key={index} />
-            )
-        })}
+        <ListGroup>
+            {list.map( (item, index) => {
+                return(
+                    <MovieListItem
+                        id={item.imdbID}
+                        title={item.Title}
+                        poster={item.Poster}
+                        year={item.Year}
+                        showModal={showModal}
+                        key={index} />
+                )
+            })}
+        </ListGroup>
     </Col>
 );
 

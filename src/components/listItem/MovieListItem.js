@@ -9,7 +9,7 @@ const MovieListItem = ({id, showModal, title, year, poster}) => (
         <div className='listFlexContainer'>
             <img src={poster !== 'N/A' ? poster : Images.emptyPoster}
                  height="100"
-                 width="75"
+                 width="80"
                  className='listPoster'
                  alt='Poster'/>
             <h4>{title} ({year})</h4>
