@@ -14,3 +14,10 @@
 .cursor {
     cursor: pointer;
 }
+
+
+@media only screen and (max-width: 540px) {
+    .firstSection, .secondSection {
+        border-radius: 4px;
+    }
+}

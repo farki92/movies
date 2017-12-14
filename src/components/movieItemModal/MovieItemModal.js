@@ -25,7 +25,7 @@ class MovieItemModal extends Component {
                     <Modal.Header closeButton bsClass='modal-header background'
                     >
                         <Modal.Title>{movieItem.Title} {`(${movieItem.Year})`}</Modal.Title>
-                        <p>{`${movieItem.Rated} |`} {`${movieItem.Genre} |`} {movieItem.Released} {movieItem.Country}</p>
+                        <p>{movieItem.Rated !== 'N/A' && `${movieItem.Rated} |`} {movieItem.Genre !== 'N/A' && `${movieItem.Genre} |`} {movieItem.Released!== 'N/A' && movieItem.Released} {movieItem.Country !=='N/A' && movieItem.Country}</p>
                     </Modal.Header>
                     <Modal.Body bsClass='modal-body background'>
                         <div className='flexContainer'>
@@ -35,24 +35,20 @@ class MovieItemModal extends Component {
                               height={350}
                               width={255} />
                             <div className='flexDescription'>
-                                <p><span>Type:</span> {movieItem.Type}</p>
-                                <p><span>iMDB rating:</span> {movieItem.imdbRating}/10</p>
-                                <p><span>iMDB votes:</span> {movieItem.imdbVotes}</p>
-                                <p><span>Runtime:</span> {movieItem.Runtime}</p>
-                                <p><span>Language:</span> {movieItem.Language}</p>
-                                <p><span>Website: </span>
-                                    <a href={movieItem.Website !== 'N/A'? movieItem.Website : ''}>
-                                        {movieItem.Website !== 'N/A' ? movieItem.Website : ' - '}
-                                    </a>
-                                </p>
-                                <p><span>Production:</span> {movieItem.Production}</p>
-                                <p><span>Awards:</span> {movieItem.Awards}</p>
-                                <p><span>Director:</span> {movieItem.Director}</p>
-                                <p><span>Actors:</span> {movieItem.Actors}</p>
-                                <p><span>Writer:</span> {movieItem.Writer}</p>
+                                { movieItem.Type !== 'N/A' && <p><span>Type:</span> {movieItem.Type}</p> }
+                                { movieItem.imdbRating !== 'N/A' && <p><span>iMDB rating:</span> {movieItem.imdbRating}/10</p> }
+                                { movieItem.imdbVotes !== 'N/A' && <p><span>iMDB votes:</span> {movieItem.imdbVotes}</p> }
+                                { movieItem.Runtime !== 'N/A' && <p><span>Runtime:</span> {movieItem.Runtime}</p> }
+                                { movieItem.Language !== 'N/A' && <p><span>Language:</span> {movieItem.Language}</p> }
+                                { movieItem.Website !== 'N/A' && <p><span>Website:</span><a href={movieItem.Website}> {movieItem.Website}</a></p> }
+                                { movieItem.Production !== 'N/A' && <p><span>Production:</span> {movieItem.Production}</p> }
+                                { movieItem.Awards !== 'N/A' && <p><span>Awards:</span> {movieItem.Awards}</p> }
+                                { movieItem.Director !== 'N/A' && <p><span>Director:</span> {movieItem.Director}</p> }
+                                { movieItem.Actors !== 'N/A' && <p><span>Actors:</span> {movieItem.Actors}</p> }
+                                { movieItem.Writer !== 'N/A' && <p><span>Writer:</span> {movieItem.Writer}</p> }
                             </div>
                         </div>
-                        <p>{movieItem.Plot}</p>
+                        { movieItem.Plot !== 'N/A' && <p>{movieItem.Plot}</p> }
                         <hr/>
                         <ResponsiveEmbed a16by9>
                             <iframe className='embed-responsive-item' title='trailer' src={videoUrl}/>
